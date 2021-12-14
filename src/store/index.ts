@@ -2,6 +2,8 @@ import { defineStore } from 'pinia';
 import { OrderType } from '../firebase/orders';
 import { db, firebase } from '../firebase';
 
+const oof = new Audio('https://www.myinstants.com/media/sounds/roblox-death-sound_1.mp3');
+
 interface Store {
 	verified: boolean;
 	password: string;
@@ -81,6 +83,7 @@ export const useStore = defineStore('main', {
 						doc.ref.delete();
 					});
 				});
+			oof.play();
 		},
 	},
 });
