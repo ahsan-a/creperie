@@ -15,7 +15,7 @@ interface Store {
 export const useStore = defineStore('main', {
 	state: (): Store => ({
 		verified: false,
-		password: '1234',
+		password: (import.meta.env.VITE_PASSWORD as string) || '1234',
 		orders: {
 			ordered: [],
 			completed: [],
