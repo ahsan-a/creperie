@@ -34,6 +34,7 @@ export const useStore = defineStore('main', {
 						completed: [],
 						rejected: [],
 					};
+					if (!snapshot.docs.length) oof.play();
 
 					snapshot.docs
 						.map((doc) => doc.data())
@@ -83,7 +84,6 @@ export const useStore = defineStore('main', {
 						doc.ref.delete();
 					});
 				});
-			oof.play();
 		},
 	},
 });
