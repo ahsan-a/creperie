@@ -71,5 +71,16 @@ export const useStore = defineStore('main', {
 				status: type,
 			});
 		},
+
+		async nukeOrders() {
+			await db
+				.collection('orders')
+				.get()
+				.then((snapshot) => {
+					snapshot.docs.forEach((doc) => {
+						doc.ref.delete();
+					});
+				});
+		},
 	},
 });
