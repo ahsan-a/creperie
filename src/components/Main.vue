@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import { useStore } from '../store';
 import { reactive } from 'vue';
-
+import { computed } from 'vue';
 import OrderItem from './OrderItem.vue';
+
+const preorders = computed(() => store.$state.orders.ordered.filter((order) => order.preorder));
+const regularOrders = computed(() => store.$state.orders.ordered.filter((order) => !order.preorder));
 const store = useStore();
 
 interface Local {
@@ -62,16 +65,21 @@ async function submitOrder() {
 			<div class="mt-2 flex flex-row items-center justify-center">
 				Pre-Order? <input type="checkbox" class="ml-3" v-model="local.order.preorder" />
 			</div>
-			<input type="text" placeholder="name" class="mt-4 outline-solid-gray-500 rounded-sm" v-model="local.order.name" />
+			<input type="text" placeholder="Name & More" class="mt-4 outline-solid-gray-500 rounded-sm" v-model="local.order.name" />
 			<button class="ml-3 mt-1 bg-green-400 px-5 rounded-lg text-lg font-semibold py-1" @click="submitOrder">submit</button>
 
 			<div v-if="store.$state.orders.ready.length" class="w-full lg:w-1/2 xl:w-3/8 mx-auto">
 				<h2 class="text-2xl font-semibold mt-4 mb-1">Ready</h2>
 				<OrderItem v-for="order in store.$state.orders.ready" :order="order" />
 			</div>
-			<div v-if="store.$state.orders.ordered.length" class="w-full lg:w-1/2 xl:w-3/8 mx-auto">
+			<div v-if="regularOrders.length" class="w-full lg:w-1/2 xl:w-3/8 mx-auto">
 				<h2 class="text-2xl font-semibold mt-4 mb-1">Ordered</h2>
-				<OrderItem v-for="order in store.$state.orders.ordered" :order="order" />
+				<OrderItem v-for="order in regularOrders" :order="order" />
+			</div>
+			<div v-if="preorders.length || store.$state.orders.waiting.length" class="w-full lg:w-1/2 xl:w-3/8 mx-auto">
+				<h2 class="text-2xl font-semibold mt-4 mb-1">Pre-Orders</h2>
+				<OrderItem v-for="order in preorders" :order="order" />
+				<OrderItem v-for="order in store.$state.orders.waiting" :order="order" />
 			</div>
 			<div v-if="store.$state.orders.completed.length" class="w-full lg:w-1/2 xl:w-3/8 mx-auto">
 				<h2 class="text-2xl font-semibold mt-4 mb-1">Completed</h2>

@@ -10,18 +10,20 @@ const getTimestamp = () => (!props.order.timestamp ? new Date().toISOString() : 
 </script>
 
 <template>
-	<div class="grid grid-cols-6 grid-rows-5 rounded-lg auto-rows-min my-5">
+	<div class="grid grid-cols-6 grid-rows-5 rounded-lg auto-rows-min text-sm my-5">
 		<div
 			class="col-span-2 rounded-tl-lg py-2 font-bold border"
 			:class="{
-				'bg-yellow-300': order.status === 'ordered',
-				'border-yellow-400 ': order.status === 'ordered',
+				'bg-yellow-200': order.status === 'ordered',
+				'border-yellow-300 ': order.status === 'ordered',
 				'bg-green-500': order.status === 'completed',
 				'border-green-600 ': order.status === 'completed',
 				'bg-red-400': order.status === 'rejected',
 				'border-red-500 ': order.status === 'rejected',
 				'bg-emerald-300': order.status === 'ready',
 				'border-green-400 ': order.status === 'ready',
+				'bg-amber-400': order.status === 'waiting',
+				'border-amber-500 ': order.status === 'waiting',
 			}"
 			>Type</div
 		>
@@ -29,29 +31,33 @@ const getTimestamp = () => (!props.order.timestamp ? new Date().toISOString() : 
 		<div
 			class="col-span-2 py-2 font-bold border"
 			:class="{
-				'bg-yellow-300': order.status === 'ordered',
-				'border-yellow-400 ': order.status === 'ordered',
+				'bg-yellow-200': order.status === 'ordered',
+				'border-yellow-300 ': order.status === 'ordered',
 				'bg-green-500': order.status === 'completed',
 				'border-green-600 ': order.status === 'completed',
 				'bg-red-400': order.status === 'rejected',
 				'border-red-500 ': order.status === 'rejected',
 				'bg-emerald-300': order.status === 'ready',
 				'border-green-400 ': order.status === 'ready',
+				'bg-amber-400': order.status === 'waiting',
+				'border-amber-500 ': order.status === 'waiting',
 			}"
-			>Name</div
+			>Name & More</div
 		>
-		<div class="col-span-4 py-2 border-gray-300 border">{{ order.name }}</div>
+		<div class="col-span-4 py-2 border-gray-300 border break-words">{{ order.name }}</div>
 		<div
 			class="col-span-2 py-2 font-bold border"
 			:class="{
-				'bg-yellow-300': order.status === 'ordered',
-				'border-yellow-400 ': order.status === 'ordered',
+				'bg-yellow-200': order.status === 'ordered',
+				'border-yellow-300 ': order.status === 'ordered',
 				'bg-green-500': order.status === 'completed',
 				'border-green-600 ': order.status === 'completed',
 				'bg-red-400': order.status === 'rejected',
 				'border-red-500 ': order.status === 'rejected',
 				'bg-emerald-300': order.status === 'ready',
 				'border-green-400 ': order.status === 'ready',
+				'bg-amber-400': order.status === 'waiting',
+				'border-amber-500 ': order.status === 'waiting',
 			}"
 			>Pre-Order?</div
 		>
@@ -59,14 +65,16 @@ const getTimestamp = () => (!props.order.timestamp ? new Date().toISOString() : 
 		<div
 			class="col-span-2 py-2 font-bold border"
 			:class="{
-				'bg-yellow-300': order.status === 'ordered',
-				'border-yellow-400 ': order.status === 'ordered',
+				'bg-yellow-200': order.status === 'ordered',
+				'border-yellow-300 ': order.status === 'ordered',
 				'bg-green-500': order.status === 'completed',
 				'border-green-600 ': order.status === 'completed',
 				'bg-red-400': order.status === 'rejected',
 				'border-red-500 ': order.status === 'rejected',
 				'bg-emerald-300': order.status === 'ready',
 				'border-green-400 ': order.status === 'ready',
+				'bg-amber-400': order.status === 'waiting',
+				'border-amber-500 ': order.status === 'waiting',
 			}"
 			>Time Ago</div
 		>
@@ -74,14 +82,16 @@ const getTimestamp = () => (!props.order.timestamp ? new Date().toISOString() : 
 		<div
 			class="col-span-2 rounded-bl-lg py-2 font-bold border"
 			:class="{
-				'bg-yellow-300': order.status === 'ordered',
-				'border-yellow-400 ': order.status === 'ordered',
+				'bg-yellow-200': order.status === 'ordered',
+				'border-yellow-300 ': order.status === 'ordered',
 				'bg-green-500': order.status === 'completed',
 				'border-green-600 ': order.status === 'completed',
 				'bg-red-400': order.status === 'rejected',
 				'border-red-500 ': order.status === 'rejected',
 				'bg-emerald-300': order.status === 'ready',
 				'border-green-400 ': order.status === 'ready',
+				'bg-amber-400': order.status === 'waiting',
+				'border-amber-500 ': order.status === 'waiting',
 			}"
 			>Actions</div
 		>
@@ -98,11 +108,16 @@ const getTimestamp = () => (!props.order.timestamp ? new Date().toISOString() : 
 					/>
 				</svg>
 			</button>
-			<button class="text-yellow-500" @click="store.changeOrderStatus('ordered', order.id)">
+			<button class="text-yellow-300" @click="store.changeOrderStatus('ordered', order.id)">
 				<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" class="fill-current h-6 w-6">
 					<path
 						d="M24 23h-20c-2.208 0-4-1.792-4-4v-15.694c.313-1.071 1.285-2.306 3-2.306 1.855 0 2.769 1.342 2.995 2.312l.005 1.688h18v18zm-2-16h-16v11s-.595-1-1.922-1c-1.104 0-2.078.896-2.078 2s.896 2 2 2h18v-14zm-2 12h-12v-10h12v10zm-8-9h-3v8h10v-4h-2v3h-1v-3h-3v3h-1v-7zm-8-6.339c-.233-.921-1.807-.917-2 0v11.997c.408-.421 1.383-.724 2-.658v-11.339zm9 6.339v3h6v-3h-6z"
 					/>
+				</svg>
+			</button>
+			<button class="text-amber-500" @click="store.changeOrderStatus('waiting', order.id)" v-if="order.preorder">
+				<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" class="fill-current h-6 w-6">
+					<path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6 14h-7v-8h2v6h5v2z" />
 				</svg>
 			</button>
 			<button class="text-red-500" @click="store.changeOrderStatus('rejected', order.id)">

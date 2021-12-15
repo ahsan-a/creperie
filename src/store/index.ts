@@ -12,6 +12,7 @@ interface Store {
 		ready: OrderType[];
 		completed: OrderType[];
 		rejected: OrderType[];
+		waiting: OrderType[];
 	};
 }
 
@@ -24,6 +25,7 @@ export const useStore = defineStore('main', {
 			ready: [],
 			completed: [],
 			rejected: [],
+			waiting: [],
 		},
 	}),
 	actions: {
@@ -36,6 +38,7 @@ export const useStore = defineStore('main', {
 						ready: [],
 						completed: [],
 						rejected: [],
+						waiting: [],
 					};
 					if (!snapshot.docs.length) oof.play();
 
@@ -57,6 +60,9 @@ export const useStore = defineStore('main', {
 								case 'ready':
 									this.$state.orders.ready.push(data);
 									break;
+								case 'waiting':
+									this.$state.orders.waiting.push(data);
+									break;
 							}
 						});
 				});
@@ -67,7 +73,7 @@ export const useStore = defineStore('main', {
 			order.set({
 				id: order.id,
 				name,
-				status: 'ordered',
+				status: preorder ? 'waiting' : 'ordered',
 				type,
 				preorder,
 				timestamp: firebase.firestore.FieldValue.serverTimestamp(),
