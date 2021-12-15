@@ -12,7 +12,7 @@ function submitPasssword() {
 <template>
 	<div id="unverified">
 		<h1 class="text-2xl font-bold">Enter the password:</h1>
-		<input v-model="input" type="text" class="bg-white mt-4" />
+		<input v-model="input" type="password" class="bg-white mt-4" />
 		<button class="ml-4 bg-green-400 px-4 py-2 font-semibold rounded-md border-dark-100" @click="submitPasssword">Submit</button>
 	</div>
 </template>

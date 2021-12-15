@@ -10,7 +10,8 @@
     "dotenv": "^10.0.0",
     "firebase": "^8.10.0",
     "pinia": "^2.0.6",
-    "vue": "^3.2.25"
+    "vue": "^3.2.25",
+    "vue-timeago3": "^2.1.2"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.0.0",

@@ -4,4 +4,10 @@ import { createPinia } from 'pinia';
 import './firebase';
 import 'virtual:windi.css';
 
-createApp(App).use(createPinia()).mount('#app');
+// @ts-ignore
+import timeago from 'vue-timeago3';
+
+createApp(App)
+	.use(createPinia())
+	.use(timeago, { converterOptions: { includeSeconds: true } })
+	.mount('#app');

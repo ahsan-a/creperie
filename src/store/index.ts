@@ -9,6 +9,7 @@ interface Store {
 	password: string;
 	orders: {
 		ordered: OrderType[];
+		ready: OrderType[];
 		completed: OrderType[];
 		rejected: OrderType[];
 	};
@@ -20,6 +21,7 @@ export const useStore = defineStore('main', {
 		password: (import.meta.env.VITE_PASSWORD as string) || '1234',
 		orders: {
 			ordered: [],
+			ready: [],
 			completed: [],
 			rejected: [],
 		},
@@ -31,6 +33,7 @@ export const useStore = defineStore('main', {
 				.onSnapshot(async (snapshot) => {
 					this.$state.orders = {
 						ordered: [],
+						ready: [],
 						completed: [],
 						rejected: [],
 					};
@@ -51,11 +54,14 @@ export const useStore = defineStore('main', {
 								case 'rejected':
 									this.$state.orders.rejected.push(data);
 									break;
+								case 'ready':
+									this.$state.orders.ready.push(data);
+									break;
 							}
 						});
 				});
 		},
-		async createOrder(type: OrderType['type'], name: string) {
+		async createOrder(type: OrderType['type'], name: string, preorder: boolean) {
 			const order = db.collection('orders').doc();
 
 			order.set({
@@ -63,6 +69,7 @@ export const useStore = defineStore('main', {
 				name,
 				status: 'ordered',
 				type,
+				preorder,
 				timestamp: firebase.firestore.FieldValue.serverTimestamp(),
 			});
 		},
