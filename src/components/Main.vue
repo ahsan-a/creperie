@@ -90,9 +90,9 @@ async function submitOrder() {
 				<OrderItem v-for="order in store.$state.orders.rejected" :order="order" />
 			</div>
 
-			<div>
+			<!-- <div>
 				<button class="mx-1 mt-75 bg-red-500 px-5 rounded-lg text-lg font-semibold py-2" @click="store.nukeOrders">NUKE ALL</button>
-			</div>
+			</div> -->
 		</div>
 	</div>
 </template>
