@@ -4,8 +4,6 @@ import { reactive } from 'vue';
 import { computed } from 'vue';
 import OrderItem from './OrderItem.vue';
 
-const preorders = computed(() => store.$state.orders.ordered.filter((order) => order.preorder));
-const regularOrders = computed(() => store.$state.orders.ordered.filter((order) => !order.preorder));
 const store = useStore();
 
 interface Local {
@@ -72,13 +70,12 @@ async function submitOrder() {
 				<h2 class="text-2xl font-semibold mt-4 mb-1">Ready: {{ store.$state.orders.ready.length }}</h2>
 				<OrderItem v-for="order in store.$state.orders.ready" :order="order" />
 			</div>
-			<div v-if="regularOrders.length" class="w-full lg:w-1/2 xl:w-3/8 mx-auto">
-				<h2 class="text-2xl font-semibold mt-4 mb-1">Ordered: {{ regularOrders.length }}</h2>
-				<OrderItem v-for="order in regularOrders" :order="order" />
+			<div v-if="store.$state.orders.ordered.length" class="w-full lg:w-1/2 xl:w-3/8 mx-auto">
+				<h2 class="text-2xl font-semibold mt-4 mb-1">Ordered: {{ store.$state.orders.ordered.length }}</h2>
+				<OrderItem v-for="order in store.$state.orders.ordered" :order="order" />
 			</div>
-			<div v-if="preorders.length || store.$state.orders.waiting.length" class="w-full lg:w-1/2 xl:w-3/8 mx-auto">
-				<h2 class="text-2xl font-semibold mt-4 mb-1">Pre-Orders: {{ store.$state.orders.waiting.length + preorders.length }}</h2>
-				<OrderItem v-for="order in preorders" :order="order" />
+			<div v-if="store.$state.orders.waiting.length" class="w-full lg:w-1/2 xl:w-3/8 mx-auto">
+				<h2 class="text-2xl font-semibold mt-4 mb-1">Pre-Orders: {{ store.$state.orders.waiting.length }}</h2>
 				<OrderItem v-for="order in store.$state.orders.waiting" :order="order" />
 			</div>
 			<div v-if="store.$state.orders.completed.length" class="w-full lg:w-1/2 xl:w-3/8 mx-auto">
