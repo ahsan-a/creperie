@@ -69,24 +69,24 @@ async function submitOrder() {
 			<button class="ml-3 mt-1 bg-green-400 px-5 rounded-lg text-lg font-semibold py-1" @click="submitOrder">submit</button>
 
 			<div v-if="store.$state.orders.ready.length" class="w-full lg:w-1/2 xl:w-3/8 mx-auto">
-				<h2 class="text-2xl font-semibold mt-4 mb-1">Ready</h2>
+				<h2 class="text-2xl font-semibold mt-4 mb-1">Ready: {{ store.$state.orders.ready.length }}</h2>
 				<OrderItem v-for="order in store.$state.orders.ready" :order="order" />
 			</div>
 			<div v-if="regularOrders.length" class="w-full lg:w-1/2 xl:w-3/8 mx-auto">
-				<h2 class="text-2xl font-semibold mt-4 mb-1">Ordered</h2>
+				<h2 class="text-2xl font-semibold mt-4 mb-1">Ordered: {{ regularOrders.length }}</h2>
 				<OrderItem v-for="order in regularOrders" :order="order" />
 			</div>
 			<div v-if="preorders.length || store.$state.orders.waiting.length" class="w-full lg:w-1/2 xl:w-3/8 mx-auto">
-				<h2 class="text-2xl font-semibold mt-4 mb-1">Pre-Orders</h2>
+				<h2 class="text-2xl font-semibold mt-4 mb-1">Pre-Orders: {{ store.$state.orders.waiting.length + preorders.length }}</h2>
 				<OrderItem v-for="order in preorders" :order="order" />
 				<OrderItem v-for="order in store.$state.orders.waiting" :order="order" />
 			</div>
 			<div v-if="store.$state.orders.completed.length" class="w-full lg:w-1/2 xl:w-3/8 mx-auto">
-				<h2 class="text-2xl font-semibold mt-4 mb-1">Completed</h2>
+				<h2 class="text-2xl font-semibold mt-4 mb-1">Completed: {{ store.$state.orders.completed.length }}</h2>
 				<OrderItem v-for="order in store.$state.orders.completed" :order="order" />
 			</div>
 			<div v-if="store.$state.orders.rejected.length" class="w-full lg:w-1/2 xl:w-3/8 mx-auto">
-				<h2 class="text-2xl font-semibold mt-4 mb-1">Rejected</h2>
+				<h2 class="text-2xl font-semibold mt-4 mb-1">Rejected: {{ store.$state.orders.rejected.length }}</h2>
 				<OrderItem v-for="order in store.$state.orders.rejected" :order="order" />
 			</div>
 
